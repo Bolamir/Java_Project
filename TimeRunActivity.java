@@ -38,26 +38,28 @@ public class TimeRunActivity extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    int h=(int)sec/3600000;
-                    int m=(int)sec%3600000/60000;
-                    int s=(int)sec%60000/1000;
-                    String time= String.format("%02d:%02d:%02d",h,m,s);
-                    timeText.setText(time);
-                    if (stop_start)
-                        sec=sec-1000;
-                    handler.postDelayed(this,1000);
-                    if (sec==0)
-                    {
+                    if(sec>=0) {
+                        int h = (int) sec / 3600000;
+                        int m = (int) sec % 3600000 / 60000;
+                        int s = (int) sec % 60000 / 1000;
+                        String time = String.format("%02d:%02d:%02d", h, m, s);
+                        timeText.setText(time);
+                        if (stop_start)
+                            sec = sec - 1000;
+                        handler.postDelayed(this, 1000);
+
+                    }
+                    else{
 
                         Intent intent = new Intent(TimeRunActivity.this, ReportActivity.class);
                         intent.putExtra("TaskReport",taskReport);
                         intent.putExtra("Deal",dealName);
                         startActivity(intent);
-
                     }
 
                 }
             });
+
 
             Button end=(Button) findViewById(R.id.endButton);
             end.setOnClickListener(new View.OnClickListener(){
